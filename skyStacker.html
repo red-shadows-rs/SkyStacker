@@ -1,0 +1,63 @@
+<!-- DEVELOPED BY RED SHADOWS -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Play SkyStacker, an exciting physics-based tower building game. Stack blocks precisely, keep your balance, and build the highest tower possible!">
+    <title>SkyStacker</title>
+    <link rel="stylesheet" href="style/skyStacker.css">
+</head>
+<body>
+    <div id="game-container">
+        
+        <div id="start-screen">
+            <h1 class="game-title">SKY STACKER</h1>
+            <p class="game-subtitle">BUILD THE HIGHEST TOWER</p>
+            <div class="menu-buttons">
+                <button id="play-btn" class="pixel-btn">PLAY</button>
+    
+                <button id="how-to-btn" class="pixel-btn">HOW TO PLAY</button>
+            </div>
+        </div>
+
+        <div id="how-to-screen" class="hidden">
+            <div class="instructions-panel">
+                <h2>HOW TO PLAY</h2>
+                <p>1. Move your mouse or tap the screen to position the block.</p>
+                <p>2. Click or release to drop the block down.</p>
+                <p>3. Stack blocks precisely on top of each other to build high.</p>
+                <p>4. Keep the tower balanced, or it will tip over and you lose!</p>
+                <button id="close-how-to-btn" class="pixel-btn">GOT IT</button>
+            </div>
+
+        </div>
+
+        <div id="game-ui" class="hidden">
+            <div class="score-bubble">
+                <div id="score">Height: 0</div>
+                <div id="top-score"> Top Height: 0</div>
+            </div>
+        </div>
+
+        <canvas id="gameCanvas" width="480" height="640"></canvas>
+
+        <div id="game-over-screen" class="hidden">
+            <h2>GAME OVER!</h2>
+            <p id="winner-text">The tower collapsed!</p>
+            <button id="restart-btn" class="pixel-btn">TRY AGAIN</button>
+        </div>
+
+        <div id="game-footer">
+            <span>Sky Stacker In 💗 By Red Shadows</span>
+        </div>
+
+    </div>
+
+    <script src="js/blocks.js"></script>
+    <script src="js/physics.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
