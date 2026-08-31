@@ -123,6 +123,8 @@ document.getElementById('play-btn').addEventListener('click', () => {
     
     document.getElementById('top-score').innerText = `Top Height: ${topScore}`;
     
+    InputController.setControlsVisible(true);
+    
     spawnNewFallingBlock();
 });
 
@@ -158,6 +160,8 @@ InputController.init(canvas, (dropX) => {
 function triggerGameOver(reason) {
     isGameOver = true;
     
+    InputController.setControlsVisible(false);
+    
     if (score > topScore) {
         topScore = score;
         localStorage.setItem('skyStackerTopScore', topScore);
@@ -169,7 +173,6 @@ function triggerGameOver(reason) {
 }
 
 function update() {
-    // تحديث وقت الخلفية والسحب حتى قبل بدء اللعبة لتتحرك بسلاسة
     globalTime += 0.00007; 
     clouds.forEach(cloud => {
         cloud.x -= cloud.speed;
@@ -455,10 +458,8 @@ function drawCloud(x, y, size) {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // الخلفية تعمل دائماً حتى في شاشة البداية
     drawBackground();
 
-    // عناصر اللعب تظهر فقط عندما تبدأ اللعبة فعلياً
     if (!gameStarted) return;
 
     ctx.save();
@@ -577,6 +578,9 @@ document.getElementById('restart-btn').addEventListener('click', () => {
     document.getElementById('top-score').innerText = `Top Height: ${topScore}`;
     
     document.getElementById('game-over-screen').classList.add('hidden');
+    
+    InputController.setControlsVisible(true);
+    
     spawnNewFallingBlock();
 });
 
