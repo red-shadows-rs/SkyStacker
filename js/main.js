@@ -607,4 +607,11 @@ if (howToBtn) {
     });
 }
 
+if (closeHowToBtn) {
+    closeHowToBtn.addEventListener('click', () => {
+        howToScreen.classList.add('hidden');
+        startScreen.classList.remove('hidden');
+    });
+}
+
 gameLoop();
