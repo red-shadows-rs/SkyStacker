@@ -593,13 +593,17 @@ if (howToBtn) {
     howToBtn.addEventListener('click', () => {
         startScreen.classList.add('hidden');
         howToScreen.classList.remove('hidden');
-    });
-}
 
-if (closeHowToBtn) {
-    closeHowToBtn.addEventListener('click', () => {
-        howToScreen.classList.add('hidden');
-        startScreen.classList.remove('hidden');
+        const pcInstructions = document.getElementById('instructions-pc');
+        const mobileInstructions = document.getElementById('instructions-mobile');
+
+        if (InputController.isMobile) {
+            pcInstructions.style.display = 'none';
+            mobileInstructions.style.display = 'block';
+        } else {
+            pcInstructions.style.display = 'block';
+            mobileInstructions.style.display = 'none';
+        }
     });
 }
 
