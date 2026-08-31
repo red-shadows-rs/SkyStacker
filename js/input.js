@@ -9,25 +9,24 @@ const InputController = {
         const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
                                (navigator.maxTouchPoints > 0 && window.innerWidth <= 1024);
 
+        this.isMobile = isMobileDevice;
         const mobileControls = document.getElementById('mobile-controls');
-        
+
         if (mobileControls) {
-            if (isMobileDevice) {
-                mobileControls.style.display = 'flex';
-            } else {
-                mobileControls.style.display = 'none';
-            }
+            mobileControls.style.display = 'none';
         }
 
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            this.currentX = (e.clientX - rect.left) * scaleX;
-        });
+        if (!this.isMobile) {
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                this.currentX = (e.clientX - rect.left) * scaleX;
+            });
 
-        canvas.addEventListener('click', () => {
-            this.triggerDrop(onDropCallback);
-        });
+            canvas.addEventListener('click', () => {
+                this.triggerDrop(onDropCallback);
+            });
+        }
 
         const btnLeft = document.getElementById('btn-left');
         const btnRight = document.getElementById('btn-right');
@@ -36,13 +35,15 @@ const InputController = {
         let movingLeft = false;
         let movingRight = false;
 
-        if (btnLeft && btnRight && btnDrop && isMobileDevice) {
-            
+        if (btnLeft && btnRight && btnDrop && this.isMobile) {
+          
             btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); movingLeft = true; });
             btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); movingLeft = false; });
-            
+            btnLeft.addEventListener('touchcancel', () => { movingLeft = false; });
+
             btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); movingRight = true; });
             btnRight.addEventListener('touchend', (e) => { e.preventDefault(); movingRight = false; });
+            btnRight.addEventListener('touchcancel', () => { movingRight = false; });
 
             btnDrop.addEventListener('touchstart', (e) => {
                 e.preventDefault();
@@ -60,6 +61,14 @@ const InputController = {
             requestAnimationFrame(updateLoop);
         };
         updateLoop();
+    },
+
+    setControlsVisible(visible) {
+        if (!this.isMobile) return;
+        const mobileControls = document.getElementById('mobile-controls');
+        if (mobileControls) {
+            mobileControls.style.display = visible ? 'flex' : 'none';
+        }
     },
 
     triggerDrop(onDropCallback) {
